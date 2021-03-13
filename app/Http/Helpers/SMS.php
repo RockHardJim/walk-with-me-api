@@ -2,6 +2,8 @@
 namespace App\Http\Helpers;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+use Unirest;
 
 class SMS{
 
@@ -22,15 +24,6 @@ class SMS{
     //Send the boys their tings skraaa
     public function send(): void
     {
-        Http::withHeaders([
-            'Content-Type' => 'application/json',
-            'Accept' => 'application/json',
-            'Authorization' => $this->key
-        ])->post('https://platform.clickatell.com/messages', [
-            json_encode([
-                'content' => $this->content,
-                'to' => $this->to
-            ], JSON_THROW_ON_ERROR)
-        ]);
+        $response = Http::get('https://platform.clickatell.com/messages/http/send?apiKey='.$this->key.'&to='.$this->to.'&content='.$this->content);
     }
 }

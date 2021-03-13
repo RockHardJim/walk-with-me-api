@@ -10,6 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class SendRegistrationSMS implements ShouldQueue
 {
@@ -19,12 +20,12 @@ class SendRegistrationSMS implements ShouldQueue
     /**
      * Create a new job instance.
      *
-     * @param User $user
+     * @param $cellphone
      * @param $password
      */
-    public function __construct(User $user, $password)
+    public function __construct($cellphone, $password)
     {
-        $this->user = $user;
+        $this->user = $cellphone;
         $this->password = $password;
     }
 
@@ -35,6 +36,6 @@ class SendRegistrationSMS implements ShouldQueue
      */
     public function handle(): void
     {
-        New SMS('Hi your password for the Walk With Me platform is as follows '. $this->password . ' please keep it safe', $this->user->cellphone);
+        New SMS('Hi your password for the Walk With Me platform is as follows '. $this->password . ' please keep it safe', $this->user);
     }
 }

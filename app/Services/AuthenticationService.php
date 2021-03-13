@@ -28,8 +28,9 @@ class AuthenticationService{
      */
     public function login(array $details): JsonResponse
     {
+        $user = $this->userRepo->user($details['cellphone']);
         if(Auth::attempt($details)){
-            return self::success('Hi, we have successfully logged you in please wait while we redirect you', array('token' => $this->user->createToken(‘authToken’)->plainTextToken));
+            return self::success('Hi, we have successfully logged you in please wait while we redirect you', array('token' => $user->createToken('AuthenticationToken')->plainTextToken));
         }
 
         return self::unauthorized('Hi you have entered incorrect login credentials as such cannot log you in');

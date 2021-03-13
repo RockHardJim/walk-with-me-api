@@ -29,7 +29,7 @@ class Signup extends FormRequest
     public function rules(): array
     {
         return [
-            'cellphone' => 'required|unique:users|digits:10|phone:mobile'
+            'cellphone' => 'required|unique:users|digits:10'
         ];
     }
 

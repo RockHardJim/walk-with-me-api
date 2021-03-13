@@ -6,6 +6,7 @@ use App\Jobs\SendRegistrationSMS;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use App\Http\Helpers\Misc;
 use Psy\Util\Str;
@@ -23,6 +24,15 @@ class UserRepository{
         $this->location = $location;
     }
 
+
+    /**
+     * this just returns the user model mos
+     * @param $cellphone
+     * @return mixed
+     */
+    public function user($cellphone){
+        return $this->user::where('cellphone', $cellphone)->first();
+    }
     /**
      * Okay this is lazily implemented i wont lie i did not want to create too many create this that what what functions
      * @param string $function
@@ -60,11 +70,11 @@ class UserRepository{
             $this->user::create([
                 'user' => (string)\Illuminate\Support\Str::orderedUuid(),
                 'cellphone' => $data['cellphone'],
-                'pin' => $password
+                'password' => Hash::make($password)
             ]);
         });
 
-        dispatch(new SendRegistrationSMS($this->user, $password));
+        dispatch(new SendRegistrationSMS($data['cellphone'], $password));
 
         return self::success('Hi, we have successfully registered your new account please wait for an sms containing your password to be sent to you', null);
     }

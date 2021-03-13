@@ -30,7 +30,7 @@ class Signin extends LaravelFormRequest
      */
     public function rules(): array
     {
-        return ['cellphone' => 'required|exists:users|phone:mobile', 'password' => 'required|min:5|max:5|pwnedpassword'];
+        return ['cellphone' => 'required|exists:users|digits:10', 'password' => 'required|min:5|max:5|pwnedpassword'];
     }
 
     protected function failedValidation(Validator $validator)
