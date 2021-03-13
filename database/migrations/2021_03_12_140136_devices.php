@@ -18,7 +18,6 @@ class Devices extends Migration
             $table->string('user')->index();
             $table->enum('type', ['android', 'ios', 'browser']);
             $table->string('device_id')->nullable();
-            $table->foreign('user')->references('user')->on('users')->cascadeOnDelete();
             $table->timestamps();
         });
     }

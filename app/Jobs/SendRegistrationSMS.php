@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Http\Helpers\SMS;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -32,8 +33,8 @@ class SendRegistrationSMS implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
-        //
+        New SMS('Hi your password for the Walk With Me platform is as follows '. $this->password . ' please keep it safe', $this->user->cellphone);
     }
 }

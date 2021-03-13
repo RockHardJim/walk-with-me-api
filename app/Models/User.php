@@ -34,6 +34,9 @@ class User extends Authenticatable
     protected $hidden = [
         'pin',
     ];
+    /**
+     * @var mixed
+     */
 
     public function profile(): HasOne
     {

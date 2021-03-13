@@ -19,7 +19,6 @@ class Profiles extends Migration
             $table->string('surname');
             $table->enum('gender', ['female', 'male', 'non-binary', 'unspecified'])->default('unspecified');
             $table->string('dob');
-            $table->foreign('user')->references('user')->on('users')->cascadeOnDelete();
             $table->timestamps();
         });
     }
