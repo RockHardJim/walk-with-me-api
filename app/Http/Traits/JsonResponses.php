@@ -26,6 +26,15 @@ trait JsonResponses{
         return 401;
     }
 
+    /**
+     * Returns http status 500
+     * @return int
+     */
+    public static function exception_status(): int
+    {
+        return 400;
+    }
+
 
     /**
      *
@@ -49,5 +58,15 @@ trait JsonResponses{
     public static function success(?string $message,?array  $data): JsonResponse
     {
         return response()->json(['status' => 'passed', 'message' => $message, 'data' => $data]);
+    }
+
+    /**
+     * Returns any exception message captured from within the tried and tested try catch thingies either in controllers, services or repositories
+     * @param string|null $message
+     * @return JsonResponse
+     */
+    public static function exception(?string $message): JsonResponse
+    {
+        return response()->json(['status' => 'failed', 'message' => $message], self::exception_status());
     }
 }

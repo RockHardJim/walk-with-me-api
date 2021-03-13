@@ -11,7 +11,8 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    //
+    //Yoh i dunno what i smoked but there is some clean shit on this controller damn k0 you killing em son.
+    //Side note did yal watch that dumbrega skit video about the covid vaccine?? hilarious shit i tell you
 
     protected $authentication;
 
@@ -21,7 +22,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Handles incoming requests appropriately
+     * Handles incoming login requests appropriately
      * @param Signin $login
      * @return JsonResponse
      */
@@ -30,7 +31,14 @@ class AuthController extends Controller
         return $this->authentication->login($login->only('cellphone', 'password'));
     }
 
-    public function register(Signup $register){
 
+    /**
+     * Handles incoming registrations requests appropriately
+     * @param Signup $register
+     * @return JsonResponse
+     */
+    public function register(Signup $register): JsonResponse
+    {
+        return $this->authentication->register($register->only('cellphone'));
     }
 }

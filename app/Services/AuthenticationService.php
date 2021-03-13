@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Http\Traits\JsonResponses;
 use App\Models\User;
+use App\Repositories\UserRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,9 +13,11 @@ class AuthenticationService{
     use JsonResponses;
 
     protected $user;
+    protected $userRepo;
 
-    public function  __construct(User $user){
+    public function  __construct(User $user, UserRepository $userRepository){
         $this->$user = $user;
+        $this->userRepo = $userRepository;
     }
 
 
@@ -30,5 +33,10 @@ class AuthenticationService{
         }
 
         return self::unauthorized('Hi you have entered incorrect login credentials as such cannot log you in');
+    }
+
+    public function register(array $cellphone): JsonResponse
+    {
+        return $this->userRepo->create('user', $cellphone);
     }
 }
